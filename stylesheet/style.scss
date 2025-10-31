@@ -1,0 +1,608 @@
+// Kleurenpalet: verander deze voor een andere theme
+$primary: #2C385C;     // helder maar rustig blauw
+$secondary: #80d8ff;    // zachte cyaan als accent (unused in current styles, but good to have)
+$background: #0d1117;   // diep donkergrijs/blauw-achtig
+$surface: rgba(255, 255, 255, 0.5);      // iets lichter voor cards
+$on-primary: #ffffff;   // tekst op blauwe knoppen
+$on-surface: #232A40;   // lichte tekst op donkere vlakken
+$error: #ff6b6b;        // subtiel rood voor fouten
+
+// Derived colors (adjust if needed based on the new primary/surface colors)
+$on-surface-variant: lighten($on-surface, 30%); // Muted text on variant surfaces
+$shadow-base: rgba(0, 0, 0, 0.4);
+$shadow-hover: rgba(0, 0, 0, 0.5);
+$shadow-deep: rgba(0, 0, 0, 0.6);
+
+// Font variables
+$font-family-base: 'Roboto', sans-serif;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// Border radius variables
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 16px;
+$border-radius-pill: 40px;
+
+// Spacing variables
+$spacing-sm: 10px;
+$spacing-md: 15px;
+$spacing-lg: 15px;
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+#headerbox{
+    background-color: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);
+
+    border-radius: 100px;
+    height: 50px;
+    width: 80vw;
+    align-content: center;
+    display: flex;
+    position: fixed;
+    z-index: 100;
+    top: 20px;
+    align-items: center;
+
+}header{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#buttons{
+    position: relative;
+    display: flex;
+    justify-content: right;
+}
+body{
+    background-image: url(../img/landscape.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.productBlok{
+    border: none;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.658);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 300px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: $primary;
+
+
+    /* NIEUW: CRUCIAAL voor de 'blade' */
+  position: relative; /* Zorgt dat ::before/::after binnen het blok blijft */
+  overflow: hidden; /* Verbergt de blades totdat ze het blok binnenvliegen */
+}
+.productBlok:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    background-color: lighten(white, 70%);
+}
+/* Styling voor BEIDE blades (::before en ::after) */
+/* Styling voor BEIDE blades (::before en ::after) */
+.productBlok::before,
+.productBlok::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%; 
+  height: 300%;
+  background: rgba(255, 255, 255, 0.2); 
+  z-index: 5;
+  
+  /* CRUCIAAL: Zet de transitie-tijd op NUL seconden in de basistoestand. */
+  /* Dit zorgt voor een onzichtbare, onmiddellijke terugsprong bij mouse-out. */
+  transition: transform 0s; 
+}
+
+/* ... overige start-transforms blijven hier staan ... */
+.productBlok::after {
+  transform: rotate(45deg) translate(-250%, 0); 
+}
+.productBlok::before {
+  transform: rotate(45deg) translate(-200%, 0); 
+}
+
+/* HOVER STATE: De animatie en eindpositie */
+.productBlok:hover::before,
+.productBlok:hover::after {
+  /* Overschrijf de 0s transitie-tijd en zet deze op 0.35s voor de hover-actie. */
+  transition: transform 0.35s ease-out; 
+}
+
+/* De beweging van BLADE 1 */
+.productBlok:hover::after {
+  transform: rotate(45deg) translate(150%, 0); 
+}
+
+/* De beweging van BLADE 2 */
+.productBlok:hover::before {
+  transform: rotate(45deg) translate(100%, 0); 
+}
+
+
+.productsGrid {
+display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+  flex-grow: 1;
+  position: relative;
+  top: 100px;
+  width: 80vw;
+  margin: 0 auto;
+}
+.gridouter{
+    width: 100%;
+
+    justify-content: center;
+}
+.logo{
+    background-image: url(../img/image.png);
+    background-size: 100%;
+    height: 45px;
+    width: 45px;
+    left: 2px;
+    position: relative;
+    rotate: 365;
+    animation: spin 4s linear infinite; 
+    border-radius: 100px;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.productFoto{
+      width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 20px;
+}
+.wotoProduct {
+    width: 500px; /* This div now controls the width of the image area on desktop */
+    flex-shrink: 0; /* Prevents this container from shrinking within the flex layout */
+    border-radius: $border-radius-md; /* Apply rounded corners to the container */
+    overflow: hidden; /* Ensures the image respects the container's border-radius */
+    /* If you want a background behind the image, add it here, e.g.: */
+    /* background-color: darken($surface, 3%); */
+    /* padding: $spacing-md; If you want padding inside this container around the image */
+}
+
+/* Styles for the actual product photo (now inside .wotoproduct) */
+.productFoto {
+    width: 100%; /* Make the image fill its new .wotoproduct container */
+    height: auto;
+    object-fit: contain;
+    /* No need for border-radius here if overflow: hidden is on parent */
+    /* background-color, padding, box-shadow are typically not needed directly on img when wrapped */
+}
+
+/* Styles for the main product details box (the gray area) */
+.productKoop {
+    display: flex; /* Use flexbox for stacking 'eerst' and 'specs' */
+    flex-direction: column; /* Stack them vertically */
+    flex-grow: 1; /* Allow this box to take up available space */
+    max-width: 700px; /* Control the maximum width of the text/spec box */
+    background-color: $surface; /* Use your surface color */
+    border-radius: $border-radius-lg; /* Use existing border radius */
+    box-shadow: 0 4px 12px $shadow-deep; /* Use existing shadow */
+    padding: $spacing-lg * 2; /* Generous padding inside the gray box */
+    box-sizing: border-box;
+        background-color: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.productKoop .eerst {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid darken($surface, 10%);
+}
+
+.productKoop .eerst h3 {
+    margin: 0;
+    font-size: 2.2em;
+    color: $primary;
+    font-weight: $font-weight-bold;
+}
+
+.productKoop .eerst h2 {
+    margin: 0;
+    font-size: 3em;
+    color: $primary;
+    font-weight: $font-weight-bold;
+}
+
+.productKoop .eerst h4 {
+    margin: 0;
+    font-size: 1.1em;
+    color: $on-surface;
+}
+
+/* Specific style for the input button in 'eerst' */
+.productKoop .eerst input[type='submit'] {
+    padding: $spacing-md $spacing-lg;
+    background-color: $primary;
+    color: $on-primary;
+    border: none;
+    border-radius: $border-radius-pill;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-top: $spacing-lg;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px $shadow-base;
+    font-weight: $font-weight-medium;
+    align-self: flex-start;
+    width: auto;
+}
+
+.productKoop .eerst input[type='button']:hover {
+    background-color: darken($primary, 10%);
+    box-shadow: 0 4px 8px $shadow-hover;
+}
+.terug:hover {
+    background-color: darken($primary, 10%);
+    box-shadow: 0 4px 8px $shadow-hover;
+}
+.terug{
+    padding: $spacing-md $spacing-lg;
+    background-color: $primary;
+    color: $on-primary;
+    border: none;
+    border-radius: $border-radius-pill;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-top: $spacing-lg;
+    margin-bottom: 30px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px $shadow-base;
+    font-weight: $font-weight-medium;
+    align-self: flex-start;
+    width: auto;
+}
+
+.productKoop .specs {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    padding-top: $spacing-md;
+}
+
+.productKoop .specs h4 {
+    margin: 0;
+    font-size: 1.05em;
+    color: $on-surface-variant;
+    line-height: 1.4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .koop-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: $spacing-lg * 2;
+        padding: $spacing-lg;
+    }
+
+    .wotoProduct { /* Adjust .wotoproduct for smaller screens */
+        width: 80%; /* Make container flexible for smaller screens */
+        max-width: 350px; /* Limit its max size */
+        margin-bottom: 0; /* No extra margin when stacked */
+    }
+
+
+
+    .productKoop {
+        max-width: 100%;
+        padding: $spacing-lg;
+    }
+
+    .productKoop .eerst {
+        text-align: center;
+        align-items: center;
+    }
+
+    .productKoop .specs {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .wotoProduct {
+        width: 90%;
+        max-height: 250px; /* Control max height for very small screens */
+    }
+    .productKoop {
+        padding: $spacing-md;
+    }
+}
+.koop-grid {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    justify-content: center; /* Keep the entire photo + productkoop block centered horizontally */
+    gap: $spacing-lg * 3; /* Gap between the image container and the productkoop box */
+    padding: $spacing-lg; /* Standard padding for the overall container */
+    max-width: 1400px; /* Allow the overall container to be wider */
+    margin: 0 auto; /* Center the koop-grid itself if it's smaller than the viewport */
+    box-sizing: border-box;
+    top: 100px;
+    position: relative;
+}
+.uitloggen {
+    padding: $spacing-sm $spacing-md; /* Standard button padding */
+    background-color: $primary; /* Primary button color */
+    color: $on-primary; /* Text color on primary button */
+    border: none;
+    border-radius: $border-radius-pill; /* Rounded pill shape */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: $font-weight-medium;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px $shadow-base;
+    margin-left: 15px;
+}
+.form11, .form22, .form33 {
+    background-color: $surface;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 8px 20px $shadow-deep;
+    padding: $spacing-lg * 2;
+    margin: $spacing-lg auto; /* Centreer horizontaal en voeg boven/onder marge toe */
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    box-sizing: border-box;
+    position: relative;
+    top: 130px;
+}
+.form11, .form22, .form33 {
+    background-color: $surface;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.4);
+    border-radius: $border-radius-lg;
+    box-shadow: 0 8px 20px $shadow-deep;
+    padding: $spacing-lg * 2;
+    margin: $spacing-lg auto; /* Centreer horizontaal en voeg boven/onder marge toe */
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    box-sizing: border-box;
+    position: relative;
+    top: 130px;
+}
+
+/* Titels (h2) in de hoofdformulieren */
+.form11 h2, .form22 h2 { /* .form33 heeft geen h2 in je HTML */
+    font-size: 2em;
+    color: $on-surface;
+    margin-bottom: $spacing-lg;
+    text-align: center;
+}
+
+/* Labels in de hoofdformulieren */
+.form11 .naam1, .form11 .achter1, .form11 .email1, .form11 .wacht1, /* maken.php labels */
+.form22 .email22, .form22 .pasword22 /* inloggen.php labels */ {
+    font-size: 1em;
+    color: $on-surface-variant;
+    margin-bottom: $spacing-sm / 2;
+    display: block; /* Zorgt dat labels op een nieuwe regel komen */
+    font-weight: $font-weight-medium;
+}
+
+/* Inputvelden (text, email, password) in de hoofdformulieren */
+.form11 .nam11, .form11 .achter11, .form11 .email11, .form11 .wacht11, /* maken.php inputs */
+.form22 .email2, .form22 .pasword2 /* inloggen.php inputs */ {
+    background-color: darken($surface, 5%);
+    border: 1px solid darken($surface, 10%);
+    border-radius: $border-radius-sm;
+    padding: $spacing-md;
+    color: $on-surface;
+    font-size: 1.1em;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form11 .nam11:focus, .form11 .achter11:focus, .form11 .email11:focus, .form11 .wacht11:focus,
+.form22 .email2:focus, .form22 .pasword2:focus {
+    border-color: $primary;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($primary, 0.4);
+}
+
+/* Submit knoppen in de hoofdformulieren */
+.form11 .subi1, /* maken.php submit */
+.form22 .submit2 /* inloggen.php submit */ {
+    padding: $spacing-md $spacing-lg * 2;
+    background-color: $primary;
+    color: $on-primary;
+    border: none;
+    border-radius: $border-radius-pill;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: $font-weight-bold;
+    margin-top: $spacing-md;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px $shadow-base;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form11 .subi1:hover, .form22 .submit2:hover {
+    background-color: darken($primary, 10%);
+    box-shadow: 0 6px 15px $shadow-hover;
+}
+
+/* Styling voor de "nog geen account?" / "heb je al een account?" formulieren */
+.form222, .log11 {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centreer de inhoud */
+    gap: $spacing-sm; /* Ruimte tussen label en button */
+    margin: $spacing-sm auto $spacing-lg auto; /* Centreer en voeg wat marge toe */
+    padding: $spacing-md;
+    border-radius: $border-radius-md;
+        position: relative; 
+    top: 100px;
+}
+
+.form222 .al2, .log11 .acc11 { /* Labels voor deze specifieke formulieren */
+    font-size: 0.9em;
+    color: $on-surface-variant;
+    margin: 0;
+    text-align: center;
+}
+.al2{
+  color: $on-primary;
+}
+
+.form222 .subi2, .log11 .subi111 { /* Knoppen voor "maak een account aan!" / "login!" */
+    background-color: transparent;
+    color: $primary;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: $font-weight-medium;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+    width: auto;
+    padding: 0;
+}
+
+.form222 .subi2:hover, .log11 .subi111:hover {
+    color: lighten($primary, 10%);
+    text-decoration: none;
+}
+
+
+/* --- Knoppen in aanpasen.php (uitloggen, account verwijderen) --- */
+
+/* De <a> tags om de input buttons */
+.form33 .aanpas3, .form33 .nog33 {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    max-width: 250px;
+    margin: $spacing-sm auto;
+}
+
+/* De daadwerkelijke knoppen in aanpasen.php */
+.form33 .uitloggen1, .form33 .verwijderen1 {
+    padding: $spacing-md $spacing-lg;
+    background-color: $primary;
+    color: $on-primary;
+    border: none;
+    border-radius: $border-radius-pill;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px $shadow-base;
+    font-weight: $font-weight-medium;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form33 .verwijderen1 {
+    background-color: $error; /* Rode kleur voor verwijderen */
+    box-shadow: 0 2px 4px rgba($error, 0.4);
+}
+
+.form33 .uitloggen1:hover {
+    background-color: darken($primary, 10%);
+    box-shadow: 0 4px 8px $shadow-hover;
+}
+
+.form33 .verwijderen1:hover {
+    background-color: darken($error, 10%);
+    box-shadow: 0 4px 8px rgba($error, 0.6);
+}
+
+
+/* --- Responsive aanpassingen voor Formulieren --- */
+
+@media (max-width: 600px) {
+    /* Algemene formulieren op de pagina's */
+    .form11, .form22, .form33 {
+        padding: $spacing-lg;
+        max-width: 100%;
+        margin: $spacing-md auto;
+    }
+
+    .form11 h2, .form22 h2 {
+        font-size: 1.8em;
+        margin-bottom: $spacing-md;
+    }
+
+    .form11 .subi1, .form22 .submit2 {
+        font-size: 1.1em;
+        padding: $spacing-md;
+    }
+
+    /* Knoppen voor uitloggen en verwijderen in aanpasen.php */
+    .form33 .uitloggen1, .form33 .verwijderen1 {
+        font-size: 1em;
+        max-width: 100%;
+        margin: $spacing-sm auto; /* Centreer de knoppen */
+    }
+}
+
+#headerKnop{
+    height: 38px;
+}
+#verwijderen{
+     padding: 5px 9px;
+    
+    color: #505a6d;
+    border: none;
+    border-radius: $border-radius-pill;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px $shadow-base;
+    font-weight: $font-weight-medium;
+    width: 100%;
+
+}
+
+#verwijderen:hover{
+    color: $error;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* --- EIND NIEUWE FORMULIER STIJLEN --- */
+#verwijderen{
+position: relative;
+top: 130px;
+background-color: #00000000;
+box-shadow: none;
+}
