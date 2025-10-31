@@ -52,6 +52,7 @@
                     throw new Exception("Fout bij uitvoeren: " . $statement->error);
                     // als er geen ecucute is bij se stmt is dan voert hij dee code uit en geeft hij aan wat de error is
                 }
+                
                 header("Location: inloggen.php");
                 // hij stuurt je naar de inlog pagina
             }catch (Exception $e) {

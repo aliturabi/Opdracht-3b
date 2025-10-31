@@ -1,3 +1,20 @@
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+ 
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+ 
+
+$log = new Logger('newshublogger');
+$log->pushHandler(new StreamHandler(__DIR__ . '/info.log', Logger::DEBUG));
+ 
+$log->info('Indexpagina geladen', ['user' => $_SESSION['email'] ?? 'gast']);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
