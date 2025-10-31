@@ -72,7 +72,7 @@
                     </div>
                         <div class='specs'>
                             <h4>likes : ".$artikel_likes."</h4>
-                            <h4>saves : ".$artikel_saves."</h4>
+                            <h4>bewaar : ".$artikel_saves."</h4>
                             <h4>uitbreng datum : ".$artikel_datum."</h4>    
                         </div>
                     </div>";

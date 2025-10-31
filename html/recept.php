@@ -72,16 +72,16 @@
             <!-- titel -->
             <!-- hier vul je je wachtwoord in -->
         
-            <label for="artikel_uitbrenger">Naam Uitbrenger:</label>
+            <label for="artikel_uitbrenger">Naam Uitbrenger</label>
             <input class="nam11" type="text" id="artikel_uitbrenger" name="artikel_uitbrenger" required>
+
+            <label for="artikel_onderwerp">Onderwerp</label>
+            <input class="nam11"  type="text" id="artikel_onderwerp" name="artikel_onderwerp" required>
 
             <label for="artikel_inhoud">Inhoud</label>
             <textarea class="nam11" id="artikel_inhoud" name="artikel_inhoud" rows="10" required></textarea>
-        
-            <label for="artikel_onderwerp">Onderwerp (Categorie)</label>
-            <input class="nam11"  type="text" id="artikel_onderwerp" name="artikel_onderwerp" required>
 
-            <label for="artikel_banner">Banner Afbeelding:</label>
+            <label for="artikel_banner">Afbeelding</label>
             <input type="file" id="artikel_banner" name="artikel_banner" accept="image/*">
 
 
@@ -91,7 +91,7 @@
               
         </form>    
         <form class="log11" action="recept.php">
-            <a href='index.php'>
+            <a href='../index.php'>
                         <input class='terug' type='button' value='<- terug naar home pagina'>
                           <!-- die is om terug te gaan naar de home pagina -->
                     </a>

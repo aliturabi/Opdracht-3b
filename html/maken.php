@@ -92,7 +92,7 @@
              <!-- alles is ook requierd omdat het moet worden in gevuld -->
         </form>    
         <form class="log11" action="inloggen.php">
-            <a href='index.php'>
+            <a href='../index.php'>
                         <input class='terug' type='button' value='<- terug naar home pagina'>
                           <!-- die is om terug te gaan naar de home pagina -->
                     </a>
